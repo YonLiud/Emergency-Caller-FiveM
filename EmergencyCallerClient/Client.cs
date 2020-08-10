@@ -36,24 +36,31 @@ namespace EmergencyCallerClient
                     });
                     return;
                 }
-                string text = "test me";
-                string player = Game.Player.Name;
-                TriggerServerEvent("sent911", player, text, Game.PlayerPed.Position);
+                string text = "";
+                text = string.Join(" ", args.ToArray());
+                Debug.WriteLine(text);
+                string playername = Game.Player.Name;
+                TriggerServerEvent("sent911", playername, text, Game.PlayerPed.Position);
             }), false);
         }
         private void OnRecieve911(string name, string args, Vector3 location)
         {
+            string street = World.GetStreetName(location);
             TriggerEvent("chat:addMessage", new
             {
                 color = new[] { 0, 204, 204 },
                 multiline = true,
-                args = new[] { "911", $"Caller: {name} | Transcript:  args"}
+                args = new[] { "911", $"Caller: ^*{name} | Location: {street} | ^*Transcript:  {args}" }
             });
             Blip blip = World.CreateBlip(location);
 
             blip.Color = BlipColor.Red;
             blip.Sprite = BlipSprite.ArmoredTruck;
             blip.Name = $"{name}'s Emergency Call";
+
+            World.DrawMarker(MarkerType.ThickChevronUp, location, new Vector3(0, 0, 0),
+                new Vector3(0, 0, 0), new Vector3(2f, 2f, 2f), Color.FromArgb(255, 255, 255, 255));
+
 
             removeBlip(blip);
         }

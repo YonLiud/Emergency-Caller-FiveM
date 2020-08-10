@@ -14,7 +14,7 @@ namespace EmergencyCallerServer
 
         public void OnCall(string playerName, string args, Vector3 location)
         {
-            Debug.WriteLine("Sender: " + playerName + " Text:  + text");
+            Debug.WriteLine("Sender: " + playerName + " | Text:  + text");
             TriggerClientEvent("recieve911", playerName, args, location);
         }
 
