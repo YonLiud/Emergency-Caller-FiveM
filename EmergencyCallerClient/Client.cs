@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using CitizenFX.Core;
 using EmergencyCallerServer;
 using static CitizenFX.Core.Native.API;
@@ -10,33 +11,57 @@ namespace EmergencyCallerClient
 {
     public class Client : BaseScript
     {
+        Player player;
         public Client()
         {
             EventHandlers["onClientResourceStart"] += new Action<string>(OnClientResourceStart);
-            EventHandlers["outcoming911"] += new Action<string>(OnRecieve911);
+            EventHandlers["recieve911"] += new Action<string, string, Vector3>(OnRecieve911);
         }
 
         private void OnClientResourceStart(string resourceName)
         {
-
+            player = Game.Player;
             Debug.WriteLine("Emergency Caller has Booted up");
             if (GetCurrentResourceName() != resourceName) return;
 
             RegisterCommand("911", new Action<int, List<object>, string>((source, args, raw) =>
             {
-                string name = Game.Player.Name;
-                Vector3 Location = Game.PlayerPed.Position;
-                TriggerServerEvent("incoming911", Game.Player.Name) ;
+                if (args.Count < 1)
+                {
+                    TriggerEvent("chat:addMessage", new
+                    {
+                        color = new[] { 255, 0, 0 },
+                        multiline = true,
+                        args = new[] { "ERR", $"No" }
+                    });
+                    return;
+                }
+                string text = "test me";
+                string player = Game.Player.Name;
+                TriggerServerEvent("sent911", player, text, Game.PlayerPed.Position);
             }), false);
         }
-        private void OnRecieve911(string message)
+        private void OnRecieve911(string name, string args, Vector3 location)
         {
             TriggerEvent("chat:addMessage", new
             {
                 color = new[] { 0, 204, 204 },
                 multiline = true,
-                args = new[] { "911", message }
+                args = new[] { "911", $"Caller: {name} | Transcript:  args"}
             });
+            Blip blip = World.CreateBlip(location);
+
+            blip.Color = BlipColor.Red;
+            blip.Sprite = BlipSprite.ArmoredTruck;
+            blip.Name = $"{name}'s Emergency Call";
+
+            removeBlip(blip);
         }
+        private async void removeBlip(Blip blip)
+        {
+            await Delay(60000);
+            blip.Delete();
+        }
+
     }
 }

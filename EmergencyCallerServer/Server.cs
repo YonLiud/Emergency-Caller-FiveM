@@ -9,17 +9,13 @@ namespace EmergencyCallerServer
     {
         public Server()
         {
-            EventHandlers["incoming911"] += new Action<string>(OnCall);
-        }
-        public void OnResourceStart(string resourceName)
-        {
-            if (GetCurrentResourceName() != resourceName) return;
+            EventHandlers["sent911"] += new Action<string, string, Vector3>(OnCall);
         }
 
-        public void OnCall(string name)
+        public void OnCall(string playerName, string args, Vector3 location)
         {
-            string message = (name + " has dialed 911!");
-            TriggerClientEvent("outcoming911", message);
+            Debug.WriteLine("Sender: " + playerName + " Text:  + text");
+            TriggerClientEvent("recieve911", playerName, args, location);
         }
 
     }
