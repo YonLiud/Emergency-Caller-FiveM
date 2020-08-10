@@ -12,8 +12,10 @@ namespace EmergencyCallerClient
     public class Client : BaseScript
     {
         Player player;
+        bool onCooldown = false;
         public Client()
         {
+
             EventHandlers["onClientResourceStart"] += new Action<string>(OnClientResourceStart);
             EventHandlers["recieve911"] += new Action<string, string, Vector3>(OnRecieve911);
         }
@@ -26,13 +28,35 @@ namespace EmergencyCallerClient
 
             RegisterCommand("911", new Action<int, List<object>, string>((source, args, raw) =>
             {
+                if (onCooldown)
+                {
+                    TriggerEvent("chat:addMessage", new
+                    {
+                        color = new[] { 255, 0, 0 },
+                        multiline = true,
+                        args = new[] { "Oops", $"You are calling too fast, Slow Down!" }
+                    });
+                    return;
+                }
+
+
                 if (args.Count < 1)
                 {
                     TriggerEvent("chat:addMessage", new
                     {
                         color = new[] { 255, 0, 0 },
                         multiline = true,
-                        args = new[] { "ERR", $"No" }
+                        args = new[] { "Oops", $"Did you mean to type your call too?" }
+                    });
+                    return;
+                }
+                if (args.Count < 1)
+                {
+                    TriggerEvent("chat:addMessage", new
+                    {
+                        color = new[] { 255, 0, 0 },
+                        multiline = true,
+                        args = new[] { "Oops", $"Did you mean to type your call too?" }
                     });
                     return;
                 }
@@ -41,6 +65,7 @@ namespace EmergencyCallerClient
                 Debug.WriteLine(text);
                 string playername = Game.Player.Name;
                 TriggerServerEvent("sent911", playername, text, Game.PlayerPed.Position);
+                cooldown();
             }), false);
         }
         private void OnRecieve911(string name, string args, Vector3 location)
@@ -57,14 +82,21 @@ namespace EmergencyCallerClient
             blip.Color = BlipColor.Red;
             blip.Sprite = BlipSprite.ArmoredTruck;
             blip.Name = $"{name}'s Emergency Call";
-
-
             removeBlip(blip);
         }
         private async void removeBlip(Blip blip)
         {
             await Delay(60000);
             blip.Delete();
+        }
+        private async void cooldown()
+        {
+            onCooldown = true;
+            Debug.WriteLine("Cooldown Set");
+            await Delay(15000);
+            onCooldown = false;
+            Debug.WriteLine("Your Cooldown has expired");
+
         }
 
     }
