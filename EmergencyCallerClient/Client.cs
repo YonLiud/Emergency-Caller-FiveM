@@ -58,9 +58,6 @@ namespace EmergencyCallerClient
             blip.Sprite = BlipSprite.ArmoredTruck;
             blip.Name = $"{name}'s Emergency Call";
 
-            World.DrawMarker(MarkerType.ThickChevronUp, location, new Vector3(0, 0, 0),
-                new Vector3(0, 0, 0), new Vector3(2f, 2f, 2f), Color.FromArgb(255, 255, 255, 255));
-
 
             removeBlip(blip);
         }
