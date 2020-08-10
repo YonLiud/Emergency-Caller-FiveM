@@ -79,8 +79,8 @@ namespace EmergencyCallerClient
             });
             Blip blip = World.CreateBlip(location);
 
-            blip.Color = BlipColor.Red;
             blip.Sprite = BlipSprite.ArmoredTruck;
+            blip.Color = BlipColor.Blue;
             blip.Name = $"{name}'s Emergency Call";
             removeBlip(blip);
         }
