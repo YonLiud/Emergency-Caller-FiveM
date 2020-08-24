@@ -3,6 +3,9 @@
 Emergency Caller is a C# Script for [FiveM](https://fivem.net/).
 
 Emergency Caller allows the players inside the session to call Police/EMS for a Roleplay Scene. Emergency Caller will display the message of the calling suspect in chat and will create a temporary blips on map to ease on the officers to locate the caller
+## Download
+[Click Here To Download](https://github.com/YonLiud/Emergency-Caller/releases/)
+
 
 ## Installation
 
