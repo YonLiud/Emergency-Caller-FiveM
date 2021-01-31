@@ -31,7 +31,7 @@ start EC
 ```
 
 ## Questions and Requests
-If you have any suggestions or ideas, feel free to  contact me in [my Linktree](https://linktr.ee/YonLiud) or my Discord > y0nliud#1545 <
+If you have any suggestions or ideas, feel free to  contact me by my Discord <b> y0nliud#1545 </b>
 
 ### Bug Reporting
 To report a bug or any issue you encounter, open a github issue ticket, and I will fix the issue hopefully the following commit and releases 
