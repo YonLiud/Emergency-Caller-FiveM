@@ -65,20 +65,27 @@ namespace EmergencyCallerClient
                 Debug.WriteLine(text);
                 string playername = Game.Player.Name;
                 TriggerServerEvent("sent911", playername, text, Game.PlayerPed.Position);
-                cooldown();
+                cooldown(); // 🡠 remove this line to disable cooldown 
             }), false);
         }
         private void OnRecieve911(string name, string args, Vector3 location)
         {
             string street = World.GetStreetName(location);
+            SendMessage(name, args, street); // 🡠 remove line to disbale 911 message
+            MakeBlip(location, name); // 🡠 remove line to disable blip
+        }
+        private void SendMessage(string name, string args, string street)
+        {
             TriggerEvent("chat:addMessage", new
             {
                 color = new[] { 0, 204, 204 },
                 multiline = true,
-                args = new[] { "911", $"Caller: ^*{name} | Location: {street} | ^*Transcript:  {args}" }
+                args = new[] { "911", $"^4Caller: ^0^*{name} | ^4Location: ^0{street} | ^4^*Transcript: ^0{args}" }
             });
+        }
+        private void MakeBlip(Vector3 location, string name)
+        {
             Blip blip = World.CreateBlip(location);
-
             blip.Sprite = BlipSprite.ArmoredTruck;
             blip.Color = BlipColor.Blue;
             blip.Name = $"{name}'s Emergency Call";
@@ -86,14 +93,14 @@ namespace EmergencyCallerClient
         }
         private async void removeBlip(Blip blip)
         {
-            await Delay(60000);
+            await Delay(60000); // 🡠 change this to the amount of exparation
             blip.Delete();
         }
         private async void cooldown()
         {
             onCooldown = true;
             Debug.WriteLine("Cooldown Set");
-            await Delay(15000);
+            await Delay(15000); // 🡠 change this to the amount of delay between calls
             onCooldown = false;
             Debug.WriteLine("Your Cooldown has expired");
 
