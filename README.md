@@ -10,16 +10,13 @@ Emergency Caller allows the players inside the session to call 911 for a Rolepla
 ## Screenshots
 
 #### Chat Message:
-![chat message](https://upload.vaa.red/i/EZvSY.png)
+![chat message](https://i.imgur.com/VfO1F9r.png)
 
 #### Map Blip:
-![map image](https://upload.vaa.red/i/oAsGV.png)
-
-#### Description in Map:
-![desc](https://upload.vaa.red/i/YVHFR.png)
+![map image](https://i.imgur.com/p9E3eTc.png)
 
 #### Cooldown Message (Visible only on client side):
-![err](https://upload.vaa.red/i/2u5nkM.png)
+![err](https://i.imgur.com/88S9Btj.png)
 
 
 <hr>
@@ -46,7 +43,7 @@ start EC
 ```
 
 ## Questions and Requests
-If you have any suggestions or ideas, feel free to  contact me by my Discord <b> y0nliud#1545 </b>
+If you have any suggestions or ideas, feel free to  contact me through my website <b> [Yonchukku.dev](https://Yonchukku.Dev) </b>
 
 ### Bug Reporting
 To report a bug or any issue you encounter, open a github issue ticket, and I will fix the issue hopefully the following commit and releases 
