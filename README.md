@@ -1,12 +1,12 @@
 # Emergency Caller
 
-Emergency Caller is a C# Script for [FiveM](https://fivem.net/).
+Emergency Caller is a ~~C#~~ Lua Script for [FiveM](https://fivem.net/).
 
 Emergency Caller allows the players inside the session to call 911 for a Roleplay Scene. Emergency Caller will display the message of the calling suspect in chat and will create a temporary blips on map to ease on the officers to locate the caller
 ## Download
 [Click Here To Download](https://github.com/YonLiud/Emergency-Caller/releases/)
-<br /><b>NEW! UK Version (999)</b> [Source is unavailable]
-
+<br />~~<b>NEW! UK Version (999)</b> [Source is unavailable]~~
+<br /> <b> NEW! Easy prefix change in </b>``/client/main.lua:7`` 
 ## Screenshots
 
 #### Chat Message:
